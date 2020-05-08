@@ -1,0 +1,102 @@
+/*reset margins*/
+*{
+    margin: 0px;
+}
+/* color pallet not tied to anyting*/
+.colorPallet{
+    --color-1:  #eee3e7;	
+    --color-2:  #ead5dc;	
+    --color-3:	#eec9d2 ;
+    --color-4:	#f4b6c2;	
+    --color-5:	#f6abb6;	
+}
+body{
+    background: url(pics/plusheenBackround.jpg) no-repeat;
+    background-size: stretch;
+    text-align: center;
+    
+}
+
+/*backdrop for the calculator*/
+.calculatorBody{
+    display: inline-block;
+    height: 90vh;
+    min-height: 500px;
+    
+    width: 70vh;
+    min-width: 350px;
+    background-color: #f4b6c2;
+    color:  #ead5dc;
+    text-align: center;
+    
+    
+}
+/*title*/
+header {
+    font-size: 4vmax;
+    color: #ead5dc;
+}
+/*displayscreen*/
+#returnScreen {
+    display: inline-block;
+    border: 2px outset #eec9d2 ;
+    height: 5vmax;
+    width: 90%;
+    background-color:#eee3e7;
+    color: #f6abb6;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+/*button grid outlay*/
+.buttons{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    height: 70vh;
+    width: 90%;
+    background-color: #eec9d2;
+    border: 2px solid #f6abb6;
+    
+    margin: 0 auto;
+    
+}
+/*numbers grid outlay*/
+.numbers{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 100%;
+    width: 98%;
+    outline: 2px outset #f6abb6;
+    gap: 1vmax;
+    
+}
+
+.functions{
+    background-color: #f6abb6;
+    outline: 2px outset #f6abb6;
+    gap: 1vmax;
+    color: fuchsia;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    
+    
+}
+#C{
+    border: 3px outset #eee3e7;
+    border-radius: 3px;
+    background: url(pics/plusheen/plusheenComputer.png) no-repeat;
+    background-size: contain;
+    background-position: center;
+    flex: 1vh 0 10vh;
+    width: 95%;
+}
+#plus{
+    border: 3px outset #eee3e7;
+    border-radius: 3px;
+    height: 100%;
+    width: 95%;
+
+}
+
