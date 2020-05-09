@@ -55,7 +55,7 @@ header {
     width: 90%;
     background-color: #eec9d2;
     border: 2px solid #f6abb6;
-    
+    color: red;
     margin: 0 auto;
     
 }
@@ -69,34 +69,27 @@ header {
     gap: 1vmax;
     
 }
-
+/*settings for X/=/+/-/CE (functions) */
 .functions{
     background-color: #f6abb6;
-    outline: 2px outset #f6abb6;
     gap: 1vmax;
     color: fuchsia;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     justify-content: center;
-    
+
     
 }
-#C{
+.functions > div{
     border: 3px outset #eee3e7;
     border-radius: 3px;
-    background: url(pics/plusheen/plusheenComputer.png) no-repeat;
+    background: url(pics/plusheen/) no-repeat;
     background-size: contain;
     background-position: center;
-    flex: 1vh 0 10vh;
-    width: 95%;
-}
-#plus{
-    border: 3px outset #eee3e7;
-    border-radius: 3px;
-    height: 100%;
-    width: 95%;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: fit-content;
 
 }
 
