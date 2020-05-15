@@ -10,10 +10,22 @@
     --color-4:	#f4b6c2;	
     --color-5:	#f6abb6;	
 }
+
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+    font-weight: normal;
+    font-style: Gotham Rounded, sans-serif;
+    
+  }
+/*body that contains calcultor*/
 body{
     background: url(pics/plusheenBackround.jpg) no-repeat;
-    background-size: stretch;
+    background-size: cover;
     text-align: center;
+
     
 }
 
@@ -28,6 +40,8 @@ body{
     background-color: #f4b6c2;
     color:  #ead5dc;
     text-align: center;
+    cursor: url(pics/.cur/catpaw.cur), auto;
+    
     
     
 }
@@ -37,52 +51,68 @@ header {
     color: #ead5dc;
 }
 /*displayscreen*/
-#returnScreen {
-    display: inline-block;
+.returnScreen {
+    display: flex;
     border: 2px outset #eec9d2 ;
-    height: 5vmax;
+    columns: minmax(5vmax,1000px);
     width: 90%;
     background-color:#eee3e7;
     color: #f6abb6;
     margin-left: 5%;
     margin-right: 5%;
+    word-wrap: break-word;
+    word-break: break-all;
+    align-content: flex-end;
+   
 }
 /*button grid outlay*/
 .buttons{
     display: grid;
     grid-template-columns: 3fr 1fr;
-    height: 70vh;
+    height: minmax(20vmax,40vmax);
     width: 90%;
-    background-color: #eec9d2;
-    border: 2px solid #f6abb6;
-    color: red;
+    background-color: #eee3e7;;
+    border: 1px solid #f6abb6;
     margin: 0 auto;
+    
     
 }
 /*numbers grid outlay*/
 .numbers{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    height: 100%;
     width: 98%;
-    outline: 2px outset #f6abb6;
+    outline: 1px outset #f6abb6;
     gap: 1vmax;
+    cursor: url(pics/.cur/catpaw.cur), auto; 
+      
     
 }
+
+.numbers > button{
+
+    background-color: #ead5dc;
+    
+}
+
+.numbers > button:hover{
+
+    background-color:  #eca7b2;
+}
+#centerzero{
+    grid-column-start: 2;
+}
+
 /*settings for X/=/+/-/CE (functions) */
 .functions{
     background-color: #f6abb6;
     gap: 1vmax;
-    color: fuchsia;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
     
 }
-.functions > div{
-    border: 3px outset #eee3e7;
+.functions > button{
+    border: 1px outset #eee3e7;
     border-radius: 3px;
     background: url(pics/plusheen/) no-repeat;
     background-size: contain;
@@ -90,6 +120,24 @@ header {
     flex: 1 1 auto;
     width: 100%;
     min-height: fit-content;
-
+    font-size: 3vmax;
+    color: #eee3e7;
+    cursor: url(pics/.cur/catpaw.cur), auto;
+    outline: none;
 }
+
+.functions > button:hover{
+    background-color: #eca7b2;
+}
+.functions > button:active{
+    border: 1px inset #eee3e7;
+    outline: none;
+}
+
+/* cat quote box */
+
+.catQuoteBox{
+    background: red;
+}
+
 
