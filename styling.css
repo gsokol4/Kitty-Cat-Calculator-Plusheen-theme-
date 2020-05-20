@@ -21,8 +21,9 @@ html {
     
   }
 /*body that contains calcultor*/
+/*try to fix the css so that when backround-repeat: no-repeat  nothere is no white space after while screen is streched*/ 
 body{
-    background: url(pics/plusheenBackround.jpg) no-repeat;
+    background: url(pics/plusheenBackround.jpg);
     background-size: cover;
     text-align: center;
 
@@ -32,9 +33,6 @@ body{
 /*backdrop for the calculator*/
 .calculatorBody{
     display: inline-block;
-    height: 90vh;
-    min-height: 500px;
-    
     width: 70vh;
     min-width: 350px;
     background-color: #f4b6c2;
@@ -92,6 +90,12 @@ header {
 .numbers > button{
 
     background-color: #ead5dc;
+    background-image: url(pics/cat.jpg);
+    content: ''; 
+    position: relative; 
+    background-size: contain;
+    background-position: center ;
+    background-repeat: no-repeat;
     
 }
 
@@ -101,6 +105,7 @@ header {
 }
 #centerzero{
     grid-column-start: 2;
+    background-image: url('plusheenMagnifineGlass.png');
 }
 
 /*settings for X/=/+/-/CE (functions) */
@@ -137,7 +142,14 @@ header {
 /* cat quote box */
 
 .catQuoteBox{
-    background: red;
+    
+    background: var(--color-5);
+    color: white;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 3%;
+    font-size: 3vmax;
+    
 }
 
 

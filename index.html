@@ -11,18 +11,18 @@
     <header>Kitty Kat Kalculator</header>
     <div class=returnScreen>99999999999</div>
     <div class=buttons>
-        <div class=numbers>
-            <button class=numbers>1</button>
-            <button class=numbers>2</button>
-            <button class=numbers>3</button>
-            <button class=numbers>4</button>
-            <button class=numbers>5</button>
-            <button class=numbers>6</button>
-            <button class=numbers>7</button>
-            <button class=numbers>8</button>
-            <button class=numbers>9</button>
-            <button class=numbers id=centerzero onclick="yeet()" onclick="yeetTwo()">0</button>
-            <button class="numbers catQuote" onclick="">Click to get a cat quote</button>
+        <div data-numbers-buttons class=numbers>
+            <button data-numbers-one class=numbers onmousedown="catSound.play()">1</button>
+            <button data-numbers-two class=numbers>2</button>
+            <button data-numbers-three class=numbers>3</button>
+            <button data-numbers-four class=numbers>4</button>
+            <button data-numbers-five class=numbers>5</button>
+            <button data-numbers-six class=numbers>6</button>
+            <button data-numbers-seven class=numbers>7</button>
+            <button data-numbers-eight class=numbers>8</button>
+            <button data-numbers-nine class=numbers>9</button>
+            <button data-numbers-zero class=numbers id=centerzero onclick="yeet()" onclick="yeetTwo()">0</button>
+            <button data-catQuoteButton class="numbers catQuote">Click to get a cat quote</button>
         </div>
         <div class=functions>
             <button id=C>CE</button>
@@ -33,10 +33,13 @@
             <button id='.'>.</button>
             <button id='='>=</button>
         </div>
-        <p class=catQuoteBox> here kitty kitty</p>
+        
         <style type="text/css">body, a, a:hover {cursor: url(http://profilki.pl/files/cur/844.png) 30 33, default;}
         </style>
     </div>
+    <div data-catQuoteBox class=catQuoteBox>
+        here kitty kitty
+        </div>
 </div>
 <script src=javascript.js tyep=text/javascript></script>
 </body>
