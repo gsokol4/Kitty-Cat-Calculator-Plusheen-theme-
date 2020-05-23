@@ -1,5 +1,15 @@
 'use strict'
-const catImages = ['plusheenAdd.png','plusheenButt.png','plusheenCute.png',
+
+/*calculator class */
+const numbers = document.querySelectorAll('[data-numbers-button]');
+console.log(numbers);
+const operations = document.querySelectorAll('[data-functions]')
+class Calculator{
+
+}
+
+
+const catImages = ['gifs/plusheen.gif','plusheenAdd.png','plusheenButt.png','plusheenCute.png',
 'plusheenDepressed.png','plusheenDrool.png','plusheenKiss.png','plusheenMagnifineGlass.png',
 'plusheenMeh.png','plusheenQuestion.png','plusheenScooter.png','plusheenSurprise.png',
 'plusheenwink.png' ];
@@ -31,15 +41,10 @@ function getRandomCatQuote (arr){
     
     let divToInsert = document.querySelector('[data-catQuoteBox]');
     let low = 0;
-    console.log(arr.length);
     let high = arr.length-1;
     let numberGen = (Math.random() * (high - low +1))+low;
-    console.log(numberGen)
     numberGen= Math.floor(numberGen);
-    console.log(numberGen)
-    console.log(arr[numberGen])
     divToInsert.textContent = arr[numberGen];  
-    console.log(divToInsert.textContent); 
 }
 
 function numberGen (arr){
@@ -77,21 +82,16 @@ function catSound (){
 }
  // Step 1: Find the element we want the event on
  let numberOne = document.querySelector('[data-numbers-one]');
- console.log(numberOne)
         // Step 2: Define the event listener function
         // Step 3: Attach event listener to element
 
 /*test function*/
 function yeet(){
 let screen = document.getElementsByClassName("returnScreen");
-console.log('helllooooo')
-console.log(screen.innerHTML)
-screen[0].innerHTML ='blue'
+screen[0].innerHTML +='blue'
 }
 function yeetTwo(){
     let screen = document.getElementsByClassName("returnScreen");
-    console.log('helllooooo')
-    console.log(screen.innerHTML)
     screen[0].innerHTML ='azul'
     }
 
@@ -106,8 +106,12 @@ function iterateImage (folderSrc,arrOfImages,arr){
 }
 
 iterateImage('pics/plusheen/',catImages,catImageSources);
-console.log(catImageSources);
 
 function setArrOfValToImage () {
-    let src = document.querySelectorAll('[data-numbers-buttons]')
+    let src = document.querySelectorAll('[data-numbers-button]');
+    for(let i=0;i<src.length;i++){
+        src[i].style.backgroundImage ='url(' + catImageSources[i] +')';
+    }
 }
+
+setArrOfValToImage();

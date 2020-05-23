@@ -11,32 +11,33 @@
     <header>Kitty Kat Kalculator</header>
     <div class=returnScreen>99999999999</div>
     <div class=buttons>
-        <div data-numbers-buttons class=numbers>
-            <button data-numbers-one class=numbers onmousedown="catSound.play()">1</button>
-            <button data-numbers-two class=numbers>2</button>
-            <button data-numbers-three class=numbers>3</button>
-            <button data-numbers-four class=numbers>4</button>
-            <button data-numbers-five class=numbers>5</button>
-            <button data-numbers-six class=numbers>6</button>
-            <button data-numbers-seven class=numbers>7</button>
-            <button data-numbers-eight class=numbers>8</button>
-            <button data-numbers-nine class=numbers>9</button>
-            <button data-numbers-zero class=numbers id=centerzero onclick="yeet()" onclick="yeetTwo()">0</button>
-            <button data-catQuoteButton class="numbers catQuote">Click to get a cat quote</button>
+        <div data-numbers-buttonsDiv class=numbers>
+            <button data-numbers-button='1' class=numbers onmousedown="catSound.play()">1</button>
+            <button data-numbers-button='2' class=numbers>2</button>
+            <button data-numbers-button='3' class=numbers>3</button>
+            <button data-numbers-button='4' class=numbers>4</button>
+            <button data-numbers-button='5' class=numbers>5</button>
+            <button data-numbers-button='6' class=numbers>6</button>
+            <button data-numbers-button='7' class=numbers>7</button>
+            <button data-numbers-button='8' class=numbers>8</button>
+            <button data-numbers-button='9' class=numbers>9</button>
+            
+            <button data-numbers-button="."  class=numbers id='.'>.</button>
+            <button data-numbers-button='0' class="numbers" id=centerzero onclick="yeet()">0</button>
+            <button data-numbers-button='catQuoteBox' data-catQuoteButton class="numbers catQuote">cat quote</button>
         </div>
         <div class=functions>
-            <button id=C>CE</button>
-            <button id=plus>+</button>
-            <button id=->-</button>
-            <button id=*>*</button>
-            <button id='/'>/</button>
-            <button id='.'>.</button>
-            <button id='='>=</button>
+            <button data-func='Del' data-delete="delete">delete</button>
+            <button data-func='CE' id=C>CE</button>
+            <button data-func='plus' id=plus>+</button>
+            <button data-func='minus' id=->-</button>
+            <button data-func='multiply' id=*>*</button>
+            <button data-func='divide' id='/'>/</button>
+            <button data-func='equal' id='='>=</button>
         </div>
-        
-        <style type="text/css">body, a, a:hover {cursor: url(http://profilki.pl/files/cur/844.png) 30 33, default;}
-        </style>
     </div>
+    <style type="text/css">body, a, a:hover {cursor: url(http://profilki.pl/files/cur/844.png) 30 33, default;}
+    </style>
     <div data-catQuoteBox class=catQuoteBox>
         here kitty kitty
         </div>
