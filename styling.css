@@ -24,12 +24,10 @@ html {
 /*try to fix the css so that when backround-repeat: no-repeat  nothere is no white space after while screen is streched*/ 
 body{
     background: url(pics/plusheenBackround.jpg);
-    background-size: cover;
+    background-size: stretch;
+    background-repeat: no-repeat;
     text-align: center;
     font-size: 100%;
-    
-    
-    
 }
 
 /*backdrop for the calculator*/
@@ -54,16 +52,18 @@ header {
 /*displayscreen*/
 .returnScreen {
     display: flex;
+    align-content: flex-end;
     border: 2px outset #eec9d2 ;
     width: 90%;
+    min-height: 9vh;
     background-color:#eee3e7;
+    background-image: url();
     color: #f6abb6;
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 5%;
     word-wrap: break-word;
     word-break: break-all;
-    align-content: flex-end;
     font-size: 6vh;
 
    
@@ -82,9 +82,10 @@ header {
 .numbers{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    margin-left:auto;
+    margin-right:auto;
     height: 10vh;
     width: 98%;
-    outline: 1px outset #f6abb6;
     gap: 1vh;
     cursor: url(pics/.cur/catpaw.cur), auto; 
 }
@@ -96,12 +97,16 @@ header {
     content: ''; 
     position: relative; 
     background-size: contain;
-    background-position: center ;
+    background-position: center;
     background-repeat: no-repeat;
     font-size: 4vh;
     overflow: hidden;
     color: var(--color-1);
     background-color: #f8bac3;
+    border-spacing: 1px;
+    border-color: #eee3e7;
+    border-radius: 10%;
+    outline: none;
 }
 
 .numbers > button:hover{
@@ -120,7 +125,7 @@ header {
 }
 .functions > button{
     border: 1px outset #eee3e7;
-    border-radius: 3px;
+    border-radius: 10%;
     background-image: url() no-repeat;
     background-size: contain;
     background-position: center;

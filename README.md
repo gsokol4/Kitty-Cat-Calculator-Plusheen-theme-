@@ -5,9 +5,6 @@ I built this because cats are great. Also it was a good chance to practice worki
 
 to use you only need to open the index.html file in your prefered browser.
 
-
-the project is currenly a work in progress and not yet completed.
-
 credit
 The project uses art work from Plusheen. I do not own the rights to this artwork this is a project to create something fun. Here is a link to the website of the artist (https://pusheen.com/)
 
