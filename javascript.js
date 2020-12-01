@@ -1,300 +1,288 @@
 'use strict'
 
-/*ref to docs */
-const numbers = document.querySelectorAll('[data-button-numbers^=append]');
-const func = document.querySelectorAll('[data-func]');
-const del = document.querySelector('[data-delete]');
-const clear = document.querySelector('[data-clear]');
-const equals = document.querySelector('[data-equals]');
-const screen = document.querySelector('[data-screen]');
-/*calculator class */
+/* ref to docs */
+const numbers = document.querySelectorAll('[data-button-numbers^=append]')
+const func = document.querySelectorAll('[data-func]')
+const del = document.querySelector('[data-delete]')
+const clear = document.querySelector('[data-clear]')
+const equals = document.querySelector('[data-equals]')
+const screen = document.querySelector('[data-screen]')
+/* calculator class */
 class Calculator {
-    constructor(screen) {
-        this.screen = screen;
-        this.clear();
+  constructor (screen) {
+    this.screen = screen
+    this.clear()
+  }
+  giletter_Count = { decimalCount: 0};
+
+  clear () {
+    this.screen.textContent = ''
+    this.operation = undefined
+    this.letter_Count.decimalCount = 0
+  }
+
+  delete () {
+    const position = this.screen.textContent.slice(-1)
+    if (this.screen.textContent.charAt(position) === '.') {
+      this.letter_Count.decimalCount = 0
     }
-    clear() {
-        this.screen.textContent = '';
-        this.operation = undefined;
-        this.letter_Count.decimalCount=0;
+    this.screen.textContent = this.screen.textContent.slice(0, -1)
+  }
+
+  appendNumber (number) {
+    if (this.letter_Count.decimalCount > 0 && number.toString() === '.') { return };
+    if (number.toString() === '.') { this.letter_Count.decimalCount = 1 };
+    this.screen.textContent = this.screen.textContent.toString() +
+            number.toString()
+  }
+
+  /* find a more eligant solution for non duplicates of operands */
+  op (operand) {
+    const text = this.screen.textContent
+    if (text.toString() === '' && operand !== '-') { return }
+
+    if (text.toString().charAt(text.length - 1) === '+' && operand !== '-') { return };
+
+    if (text.toString().charAt(text.length - 1) === '-') { return };
+
+    if (text.toString().charAt(text.length - 1) === '*' && operand !== '-') { return };
+
+    if (text.toString().charAt(text.length - 1) === '/' && operand !== '-') { return };
+
+    if (text.charAt(text.length - 1).toString() === '.') { return }
+    this.letter_Count.decimalCount = 0
+    this.solve()
+    this.screen.textContent = this.screen.textContent.toString() +
+            operand
+  }
+
+  solve () {
+    switch (true) {
+      case (this.screen.textContent.charAt(0) === '-'): {
+        this.negativeNumberSwitch()
+        break
+      }
+      case (this.screen.textContent.includes('+')):
+      {
+        this.add()
+        break
+      }
+      case (this.screen.textContent.includes('-') && this.MulAndDivCheck() === false):
+      {
+        this.minus()
+        break
+      }
+      case (this.screen.textContent.includes('*')):
+      {
+        this.multiply()
+        break
+      }
+      case (this.screen.textContent.includes('/')):
+      {
+        this.division()
+        break
+      }
+
+      default: { }
     }
-    delete() {
-        let position= this.screen.textContent.slice(-1);
-        if (this.screen.textContent.charAt(position) == '.') {
-            this.letter_Count.decimalCount = 0;
-        }
-        this.screen.textContent = this.screen.textContent.slice(0, -1);
-        
+  }
+
+  negativeNumberSwitch () {
+    switch (true) {
+      case (this.screen.textContent.includes('+')):
+      {
+        this.add()
+        break
+      }
+
+      case (this.screen.textContent.slice(1, -1).includes('-') &&
+            this.MulAndDivCheck() === false):
+      {
+        this.addingNegativeNums()
+        break
+      }
+
+      case (this.screen.textContent.includes('*')):
+      {
+        this.multiply()
+        break
+      }
+
+      case (this.screen.textContent.includes('/')):
+      {
+        this.division()
+        break
+      }
+      default :
     }
+  }
 
-    letter_Count = { decimalCount: 0};
+  add () {
+    const partsOfSum = this.screen.textContent.split('+')
+    if (partsOfSum[1].toString() === '') { return };
+    this.screen.textContent = (Number.parseFloat(partsOfSum[0]) +
+            (Number.parseFloat(partsOfSum[1])))
+  }
 
-    appendNumber(number) {
-        if (this.letter_Count.decimalCount > 0 && number == '.') { return };
-        if(number=='.'){this.letter_Count.decimalCount=1};
-        this.screen.textContent = this.screen.textContent.toString()
-            + number.toString();
+  addingNegativeNums () {
+    const partsOfSum = this.screen.textContent.split('-')
+    console.log(partsOfSum)
+    if (partsOfSum[2].toString === '') { return }
+    this.screen.textContent = '-' + (Number.parseFloat(partsOfSum[1]) +
+            (Number.parseFloat(partsOfSum[2])))
+  }
+
+  minus () {
+    const partsOfSub = this.screen.textContent.split('-')
+    if (partsOfSub[1].toString === '') { return }
+    this.screen.textContent = (Number.parseFloat(partsOfSub[0]) -
+            (Number.parseFloat(partsOfSub[1])))
+  }
+
+  multiply () {
+    const partsOfMul = this.screen.textContent.split('*')
+    if (partsOfMul[1].toString === '') { return };
+    this.screen.textContent = (Number.parseFloat(partsOfMul[0]) *
+            (Number.parseFloat(partsOfMul[1])))
+  }
+
+  division () {
+    const partsOfDiv = this.screen.textContent.split('/')
+    if (partsOfDiv[1].toString() === '') { return };
+    if (partsOfDiv[1].toString() === '0') {
+      this.divideByZero()
+    } else {
+      this.screen.textContent = (Number.parseFloat(partsOfDiv[0]) /
+            (Number.parseFloat(partsOfDiv[1])))
     }
-    /*find a more eligant solution for non duplicates of operands*/
-    op(operand) {
-        let text = this.screen.textContent;
-        if (text == '' && operand !=='-') { return }
+  }
 
-        if (text.toString().charAt(text.length - 1) == '+' && operand!=='-') 
-            { return };
+  divideByZero () {
+    const divideByZeroImg = document.createElement('img')
+    divideByZeroImg.src = 'https://i.chzbgr.com/full/8175066880/h18D266AA/u-dun-goofed'
 
-        if (text.toString().charAt(text.length - 1) == '-') 
-            { return };
+    const button = document.createElement('button')
+    button.textContent = 'Back to Calculator'
+    button.setAttribute('onClick', 'location.reload()')
 
-        if (text.toString().charAt(text.length - 1) == '*' && operand!=='-') 
-            { return };
+    const body = document.querySelector('body')
+    body.innerHTML = ''
+    body.style.display = 'flex'
+    body.style.flexDirection = 'column'
+    body.style.width = '35vmax'
+    body.style.height = 'auto'
+    body.style.margin = 'auto'
+    body.appendChild(divideByZeroImg)
+    body.appendChild(button)
+  }
 
-        if (text.toString().charAt(text.length - 1) == '/'&& operand!=='-') 
-            { return };
+  MulAndDivCheck () {
+    const arr = ['*', '/', '+']
 
-        if (text.charAt(text.length-1) == '.') {return}
-        this.letter_Count.decimalCount=0;
-        this.solve();
-        this.screen.textContent = this.screen.textContent.toString()
-            + operand;
-    }
-
-    solve() {
-        switch (true) {
-            
-            case (this.screen.textContent.charAt(0)==='-'): {
-                this.negativeNumberSwitch();
-                break
-                }        
-            case (this.screen.textContent.includes('+')):
-                {
-                    
-                    this.add();
-                    break;
-                }
-            case (this.screen.textContent.includes('-') && this.MulAndDivCheck()==false):
-                {    
-                    this.minus();
-                    break;
-                }
-            case (this.screen.textContent.includes('*')):
-                {
-                    this.multiply();
-                    break;
-                }
-            case (this.screen.textContent.includes('/')):
-                {
-                    this.division()
-                    break;
-                }
-            
-
-            
-            default: { return }
-        }
-
-    }
-    negativeNumberSwitch(){
-        switch(true){
-            case (this.screen.textContent.includes('+')):
-                {
-                this.add();
-                break;
-                }
-            
-            case (this.screen.textContent.slice(1,-1).includes('-') && 
-            this.MulAndDivCheck()==false):
-                {
-                this.addingNegativeNums();
-                break;
-                } 
-
-            case (this.screen.textContent.includes('*')):
-                {
-                this.multiply();
-                break;
-                }   
-
-            case (this.screen.textContent.includes('/')):
-                {
-                this.division()
-                }
-        default : {return};
-        }
-        
-    } 
-
-    add() {
-        let partsOfSum = this.screen.textContent.split('+');
-        if (partsOfSum[1] == '') { return };
-        this.screen.textContent = (Number.parseFloat(partsOfSum[0])
-            + (Number.parseFloat(partsOfSum[1])));
-    }
-    addingNegativeNums() {
-        let partsOfSum = this.screen.textContent.split('-');
-        console.log(partsOfSum)
-        if (partsOfSum[2] == '') { return }
-        this.screen.textContent = '-'+(Number.parseFloat(partsOfSum[1])
-            + (Number.parseFloat(partsOfSum[2])));
-    }
-    minus() {
-        let partsOfSub = this.screen.textContent.split('-');
-        if (partsOfSub[1] == '') { return }
-        this.screen.textContent = (Number.parseFloat(partsOfSub[0])
-            - (Number.parseFloat(partsOfSub[1])));
-    }
-    multiply() {
-        let partsOfMul = this.screen.textContent.split('*');
-        if (partsOfMul[1] == '') { return };
-        this.screen.textContent = (Number.parseFloat(partsOfMul[0])
-            * (Number.parseFloat(partsOfMul[1])));
-    }
-    division() {
-        let partsOfDiv = this.screen.textContent.split('/');
-        if (partsOfDiv[1] == '') { return };
-        if (partsOfDiv[1]=='0') { 
-           this.divideByZero();
-        }else{
-        this.screen.textContent = (Number.parseFloat(partsOfDiv[0])
-            / (Number.parseFloat(partsOfDiv[1])));}
-    }
-    divideByZero(){
-        let divideByZeroImg=document.createElement('img');
-           divideByZeroImg.src ='https://i.chzbgr.com/full/8175066880/h18D266AA/u-dun-goofed';
-           
-           let button = document.createElement('button');
-           button.textContent='Back to Calculator';
-           button.setAttribute('onClick','location.reload()')
-
-           let body= document.querySelector('body');
-           body.innerHTML='';
-           body.style.display='flex';
-           body.style.flexDirection='column';
-           body.style.width='35vmax';
-           body.style.height='auto';
-           body.style.margin='auto';
-           body.appendChild(divideByZeroImg);
-           body.appendChild(button);
-    }
-    MulAndDivCheck(){
-        let arr=['*','/','+'];
-
-        let result=arr.some((operand)=>this.screen.textContent.includes(operand));
-        console.log(result);
-        return result;
-    }
+    const result = arr.some((operand) => this.screen.textContent.includes(operand))
+    console.log(result)
+    return result
+  }
 }
-/*test*/
-
+/* test */
 
 /* event listenters */
-let calculator = new Calculator(screen);
+const calculator = new Calculator(screen)
 
 clear.addEventListener('click', () => {
-    calculator.clear();
-});
-
-del.addEventListener('click', () => {
-    calculator.delete();
-});
-
-for (let num of numbers) {
-    num.addEventListener('click', () => {
-        calculator.appendNumber(num.textContent)
-    });
-}
-
-for (let operand of func) {
-    operand.addEventListener('click', () => {
-        calculator.op(operand.textContent)
-    })
-}
-equals.addEventListener('click', () => {
-    calculator.solve()
+  calculator.clear()
 })
 
+del.addEventListener('click', () => {
+  calculator.delete()
+})
+
+for (const num of numbers) {
+  num.addEventListener('click', () => {
+    calculator.appendNumber(num.textContent)
+  })
+}
+
+for (const operand of func) {
+  operand.addEventListener('click', () => {
+    calculator.op(operand.textContent)
+  })
+}
+equals.addEventListener('click', () => {
+  calculator.solve()
+})
 
 const catImages = ['gifs/plusheen.gif', 'plusheenAdd.png', 'plusheenButt.png', 'plusheenCute.png',
-    'plusheenDepressed.png', 'plusheenDrool.png', 'plusheenKiss.png', 'plusheenMagnifineGlass.png',
-    'plusheenMeh.png', 'plusheenQuestion.png', 'plusheenScooter.png', 'plusheenSurprise.png',
-    'plusheenwink.png'];
+  'plusheenDepressed.png', 'plusheenDrool.png', 'plusheenKiss.png', 'plusheenMagnifineGlass.png',
+  'plusheenMeh.png', 'plusheenQuestion.png', 'plusheenScooter.png', 'plusheenSurprise.png',
+  'plusheenwink.png']
 
 const catQuotes = ['In ancient times cats were worshipped as gods; they have not forgotten this. - Terry Pratchett',
-    'I had been told that the training procedure with cats was difficult. It is not. Mine had me trained in two days. - Bill Dana',
-    'Cats are inquisitive, but hate to admit it. - Mason Cooley',
-    'As anyone who has ever been around a cat for any length of time well knows, \
-cats have enormous patience with the limitations of the humankind. - Cleveland Amory',
-    'I have studied many philosophers and many cats. The wisdom of cats is infinitely superior. - Hippolyte Taine',
-    'There are two means of refuge from the miseries of life: music and cats. - Albert Schweitzer',
-    'Owners of dogs will have noticed that, if you provide them with food and water and shelter and affection,\
- they will think you are God. Whereas owners of cats are compelled to realize that, \
- if you provide them with food and water and affection,\
-they draw the conclusion that they are God. - Christopher Hitchens',
-    'A happy arrangement: many people prefer cats to other people, and many cats prefer people to other cats. - Mason Cooley',
-    'It is impossible for a lover of cats to banish these alert, gentle, and discriminating friends, \
-   who give us just enough of their regard and complaisance to make us hunger for more. - Agnes Repplier',
-    'How we behave toward cats here below determines our status in heaven. - Robert A. Heinlein',
-    'I used to love dogs until I discovered cats. - Nafisa Joseph',
-];
+  'I had been told that the training procedure with cats was difficult. It is not. Mine had me trained in two days. - Bill Dana',
+  'Cats are inquisitive, but hate to admit it. - Mason Cooley',
+  'As anyone who has ever been around a cat for any length of time well knows, cats have enormous patience with the limitations of the humankind. - Cleveland Amory',
+  'I have studied many philosophers and many cats. The wisdom of cats is infinitely superior. - Hippolyte Taine',
+  'There are two means of refuge from the miseries of life: music and cats. - Albert Schweitzer',
+  'Owners of dogs will have noticed that, if you provide them with food and water and shelter and affection, they will think you are God. Whereas owners of cats are compelled to realize that,if you provide them with food and water and affection, they draw the conclusion that they are God. - Christopher Hitchens',
+  'A happy arrangement: many people prefer cats to other people, and many cats prefer people to other cats. - Mason Cooley',
+  'It is impossible for a lover of cats to banish these alert, gentle, and discriminating friends,  who give us just enough of their regard and complaisance to make us hunger for more. - Agnes Repplier',
+  'How we behave toward cats here below determines our status in heaven. - Robert A. Heinlein',
+  'I used to love dogs until I discovered cats. - Nafisa Joseph'
+]
 
 /* cat quote generator (=♡ ᆺ ♡=)
 */
 
-function getRandomCatQuote(arr) {
-
-    let divToInsert = document.querySelector('[data-catQuoteBox]');
-    let low = 0;
-    let high = arr.length - 1;
-    let numberGen = (Math.random() * (high - low + 1)) + low;
-    numberGen = Math.floor(numberGen);
-    divToInsert.textContent = arr[numberGen];
+function getRandomCatQuote (arr) {
+  const divToInsert = document.querySelector('[data-catQuoteBox]')
+  const low = 0
+  const high = arr.length - 1
+  let numberGen = (Math.random() * (high - low + 1)) + low
+  numberGen = Math.floor(numberGen)
+  divToInsert.textContent = arr[numberGen]
 }
 
-function numberGen(arr) {
-
-    let low = 0;
-    let high = arr.length - 1;
-    let numberGen = (Math.random() * (high - low + 1)) + low;
-    numberGen = Math.floor(numberGen);
-    return numberGen
+function numberGen (arr) {
+  const low = 0
+  const high = arr.length - 1
+  let numberGen = (Math.random() * (high - low + 1)) + low
+  numberGen = Math.floor(numberGen)
+  return numberGen
 }
 
-function noRepeatNumbers(func) {
-    let dublicateCheck = [];
-    let ranNum = numberGen(arr);
-    let ranNum2 = numberGen(arr);
-    dublicateCheck.push(ranNum);
+function noRepeatNumbers (func) {
+  const dublicateCheck = []
+  const ranNum = numberGen(arr)
+  let ranNum2 = numberGen(arr)
+  dublicateCheck.push(ranNum)
 
-
-
-    if (firstNum == secondNum) { secondNum = numberGen(arr) }
+  if (ranNum === ranNum2) { ranNum2 = numberGen(arr) }
 }
 
-let catQuote = document.querySelector('[data-catQuoteButton]');
+const catQuote = document.querySelector('[data-catQuoteButton]')
 catQuote.addEventListener('click', function () { getRandomCatQuote(catQuotes) })
 
 // Step 1: Find the element we want the event on
-let numberOne = document.querySelector('[data-numbers-one]');
+const numberOne = document.querySelector('[data-numbers-one]')
 // Step 2: Define the event listener function
 // Step 3: Attach event listener to element
 
-/* iterating through all the photos*/
-let catImageSources = [];
-function iterateImage(folderSrc, arrOfImages, arr) {
-    /* pass through images and make them = to document object */
-    for (let i = 0; i < arrOfImages.length; i++) {
-        arr.push(folderSrc + arrOfImages[i])
-    }
-
+/* iterating through all the photos */
+const catImageSources = []
+function iterateImage (folderSrc, arrOfImages, arr) {
+  /* pass through images and make them = to document object */
+  for (let i = 0; i < arrOfImages.length; i++) {
+    arr.push(folderSrc + arrOfImages[i])
+  }
 }
 
-iterateImage('pics/plusheen/', catImages, catImageSources);
+iterateImage('pics/plusheen/', catImages, catImageSources)
 
-function setArrOfValToImage() {
-    let src = document.querySelectorAll('[data-button-numbers]');
-    for (let i = 0; i < src.length; i++) {
-        src[i].style.backgroundImage = 'url(' + catImageSources[i] + ')';
-    }
+function setArrOfValToImage () {
+  const src = document.querySelectorAll('[data-button-numbers]')
+  for (let i = 0; i < src.length; i++) {
+    src[i].style.backgroundImage = 'url(' + catImageSources[i] + ')'
+  }
 }
 
-setArrOfValToImage();
+setArrOfValToImage()
