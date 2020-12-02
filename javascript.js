@@ -13,7 +13,7 @@ class Calculator {
     this.screen = screen
     this.clear()
   }
-  giletter_Count = { decimalCount: 0};
+  letter_Count = { decimalCount: 0};
 
   clear () {
     this.screen.textContent = ''
