@@ -12,26 +12,28 @@ class Calculator {
   constructor (screen) {
     this.screen = screen
     this.clear()
+    this.letter_Count = 0
   }
-  giletter_Count = { decimalCount: 0};
 
   clear () {
     this.screen.textContent = ''
     this.operation = undefined
-    this.letter_Count.decimalCount = 0
+    this.letter_Count = 0
   }
 
   delete () {
     const position = this.screen.textContent.slice(-1)
+    console.log(position)
     if (this.screen.textContent.charAt(position) === '.') {
-      this.letter_Count.decimalCount = 0
+      this.letter_Count = 0
+      console.log(this.letter_Count)
     }
     this.screen.textContent = this.screen.textContent.slice(0, -1)
   }
 
   appendNumber (number) {
-    if (this.letter_Count.decimalCount > 0 && number.toString() === '.') { return };
-    if (number.toString() === '.') { this.letter_Count.decimalCount = 1 };
+    if (this.letter_Count > 0 && number.toString() === '.') { return };
+    if (number.toString() === '.') { this.letter_Count = 1 };
     this.screen.textContent = this.screen.textContent.toString() +
             number.toString()
   }
@@ -50,7 +52,7 @@ class Calculator {
     if (text.toString().charAt(text.length - 1) === '/' && operand !== '-') { return };
 
     if (text.charAt(text.length - 1).toString() === '.') { return }
-    this.letter_Count.decimalCount = 0
+    this.letter_Count = 0
     this.solve()
     this.screen.textContent = this.screen.textContent.toString() +
             operand
@@ -242,30 +244,8 @@ function getRandomCatQuote (arr) {
   divToInsert.textContent = arr[numberGen]
 }
 
-function numberGen (arr) {
-  const low = 0
-  const high = arr.length - 1
-  let numberGen = (Math.random() * (high - low + 1)) + low
-  numberGen = Math.floor(numberGen)
-  return numberGen
-}
-
-function noRepeatNumbers (func) {
-  const dublicateCheck = []
-  const ranNum = numberGen(arr)
-  let ranNum2 = numberGen(arr)
-  dublicateCheck.push(ranNum)
-
-  if (ranNum === ranNum2) { ranNum2 = numberGen(arr) }
-}
-
 const catQuote = document.querySelector('[data-catQuoteButton]')
 catQuote.addEventListener('click', function () { getRandomCatQuote(catQuotes) })
-
-// Step 1: Find the element we want the event on
-const numberOne = document.querySelector('[data-numbers-one]')
-// Step 2: Define the event listener function
-// Step 3: Attach event listener to element
 
 /* iterating through all the photos */
 const catImageSources = []
@@ -286,3 +266,15 @@ function setArrOfValToImage () {
 }
 
 setArrOfValToImage()
+
+/* I will use JS to implement this class I am assuming that all methods will remain blank and I will only write the Class methods 
+
+  this next question is what is the functionality that we want Employees to have? 
+  I decided to give employees the ability to clock in and clock out since no specific functionality was implied
+
+*/
+
+var a = ['dog', 'cat', 'hen']
+a[10] = 'fox'
+console.log(a)
+console.log(a[5])

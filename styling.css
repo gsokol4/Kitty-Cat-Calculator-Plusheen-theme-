@@ -133,12 +133,12 @@ header {
     background-position: center;
     flex: 1 1 auto;
     width: 100%;
-    min-height: fit-content;
+    max-height: 100%;
     color: #eee3e7;
     cursor: url(pics/.cur/catpaw.cur), auto;
     outline: none;
     background-color: #f8bac3;
-    font-size: 1vw;
+    font-size: 2vw;
 }
 
 .functions > button:hover{
@@ -160,4 +160,6 @@ header {
     font-size: 3vh;
 }
 
+
+/* resize for tablet and phone */
 
